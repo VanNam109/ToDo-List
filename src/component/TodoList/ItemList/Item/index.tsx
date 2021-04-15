@@ -4,7 +4,17 @@ class Item extends Component<any> {
   render() {
     let classNameLabel: string = "";
     let nameLabel: string = "";
-    switch (this.props.level) {
+    let { item, index } = this.props;
+    if (item === 0) {
+      return (
+        <tr>
+          <td colSpan={4} className="text-center">
+            <h4>No Item</h4>
+          </td>
+        </tr>
+      );
+    }
+    switch (item.level) {
       case 1:
         classNameLabel = "label label-warning";
         nameLabel = "Medium";
@@ -19,20 +29,24 @@ class Item extends Component<any> {
         break;
     }
     return (
-      <tr key={this.props.id}>
-        <td className="text-center">{this.props.id}</td>
-        <td>{this.props.name}</td>
+      <tr>
+        <td className="text-center"> {index + 1}</td>
+        <td>{item.name}</td>
         <td className="text-center">
           <span className={classNameLabel}>{nameLabel}</span>
         </td>
         <td>
-          <button type="button" className="btn btn-warning btn-sm">
+          <button
+            type="button"
+            className="btn btn-warning btn-sm"
+            onClick={() => this.props.handleEditItem(item, index)}
+          >
             Edit
           </button>
           <button
             type="button"
             className="btn btn-danger btn-sm"
-            onClick={() => this.props.handleShowAlert(this.props.id)}
+            onClick={() => this.props.handleShowAlert(item)}
           >
             Delete
           </button>
