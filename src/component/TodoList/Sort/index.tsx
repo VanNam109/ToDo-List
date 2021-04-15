@@ -20,7 +20,7 @@ class Sort extends Component<any> {
     return (
       <div className="dropdown">
         <button
-          className="btn btn-default dropdown-toggle"
+          className="btn btn-default dropdown-toggle btn-dropdown-sort"
           type="button"
           data-toggle="dropdown"
           aria-haspopup="true"

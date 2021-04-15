@@ -8,11 +8,15 @@ class Search extends Component<any> {
           type="text"
           className="form-control"
           placeholder="Search item name"
-          defaultValue={this.props.valueSearch}
+          value={this.props.valueSearch}
           onChange={this.props.handleSearch}
         />
         <span className="input-group-btn">
-          <button className="btn btn-info" type="button">
+          <button
+            className="btn btn-info"
+            type="button"
+            onClick={this.props.handleSearchClickClear}
+          >
             Clear
           </button>
         </span>

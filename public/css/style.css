@@ -1,6 +1,13 @@
-.marginB10 {margin-bottom: 10px;}
-.marginR5 {margin-right: 5px;}
+.marginB10 {
+    margin-bottom: 10px;
+}
+.marginR5 {
+    margin-right: 5px;
+}
 .label-medium {
-	padding: 9px 10px;
+    padding: 9px 10px;
     font-size: 13px;
+}
+.btn-dropdown-sort {
+    margin-bottom: 10px;
 }

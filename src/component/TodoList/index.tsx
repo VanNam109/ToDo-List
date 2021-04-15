@@ -34,6 +34,8 @@ class ToDoList extends Component<any, ListItemState> {
       sortType: "",
       sortOrder: "",
       valueSearch: "",
+      isSearch: false,
+      itemsSearch: [],
     };
   }
   //Render Item in ListData
@@ -45,9 +47,14 @@ class ToDoList extends Component<any, ListItemState> {
       nameEdit,
       levelEdit,
       arrayLevel,
+      isSearch,
+      itemsSearch,
     } = this.state;
     if (items.length === 0) {
       return <Item item={0} />;
+    }
+    if (isSearch) {
+      items = itemsSearch;
     }
     return items.map((item, index) => {
       if (item.id === idEdit) {
@@ -77,10 +84,14 @@ class ToDoList extends Component<any, ListItemState> {
   };
   //ShowAlert delete
   handleShowAlert = (item: any): void => {
-    this.setState({
-      idAlert: item.id,
-    });
-    this.handleDeleteItem();
+    this.setState(
+      {
+        idAlert: item.id,
+      },
+      () => {
+        this.handleDeleteItem();
+      }
+    );
   };
   //Event Delete Item
   handleDeleteItem = (): void => {
@@ -93,6 +104,13 @@ class ToDoList extends Component<any, ListItemState> {
         }
       }
     }
+    this.setState({
+      items: [...items],
+    });
+    this.setState({
+      isSearch: false,
+      valueSearch: "",
+    });
   };
   // //Even Edit Item
   handleEditItem = (item: any, index: any): void => {
@@ -227,7 +245,30 @@ class ToDoList extends Component<any, ListItemState> {
   };
   //handle Search Input
   handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.value);
+    let search: any = e.target.value;
+    let { items } = this.state;
+    let itemsSearch = [...items];
+    let newArray = [];
+    if (search.length <= 0) {
+      this.setState({ isSearch: false });
+    } else {
+      for (let item of itemsSearch) {
+        if (item.name.toLowerCase().indexOf(search.toLowerCase()) > -1) {
+          newArray.push(item);
+        }
+      }
+      this.setState({ isSearch: true });
+    }
+    this.setState({
+      itemsSearch: newArray,
+      valueSearch: search,
+    });
+  };
+  //Handle clear search
+  handleSearchClickClear = () => {
+    this.setState({
+      valueSearch: "",
+    });
   };
   render() {
     return (
@@ -238,6 +279,7 @@ class ToDoList extends Component<any, ListItemState> {
             <Search
               valueSearch={this.state.valueSearch}
               handleSearch={this.handleSearch}
+              handleSearchClickClear={this.handleSearchClickClear}
             />
           </div>
           <div className="col-xs-3 col-sm-3 col-md-3 col-lg-3">

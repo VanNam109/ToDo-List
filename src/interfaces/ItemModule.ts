@@ -18,4 +18,6 @@ export interface ListItemState {
   sortType: any;
   sortOrder: any;
   valueSearch: string;
+  isSearch: boolean;
+  itemsSearch: Array<any>;
 }
